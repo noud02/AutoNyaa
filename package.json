@@ -6,6 +6,9 @@
   "scripts": {
     "test": "node src/index.js 'Mitsuboshi Colors'"
   },
+  "bin": {
+      "autonyaa": "./src/index.js"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/yuwui/AutoNyaa.git"
