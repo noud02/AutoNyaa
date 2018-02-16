@@ -17,7 +17,8 @@ let i = 0;
 async function next() {
     // If i is the length of all show arguments we gave it we're done
     if (i === argv._.length) {
-        return console.log('\nDone downloading all shows!');
+        console.log('\nDone downloading all shows!');
+        return process.exit();
     }
 
     const anime = argv._[i];
