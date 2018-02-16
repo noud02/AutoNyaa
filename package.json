@@ -1,0 +1,27 @@
+{
+  "name": "autonyaa",
+  "version": "0.1.0",
+  "description": "CLI Script to automatically download anime from nyaa.si",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "node src/index.js 'Mitsuboshi Colors'"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yuwui/AutoNyaa.git"
+  },
+  "author": "yuwui",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/yuwui/AutoNyaa/issues"
+  },
+  "homepage": "https://github.com/yuwui/AutoNyaa#readme",
+  "dependencies": {
+    "bluebird": "^3.5.1",
+    "got": "^8.1.0",
+    "numeral": "^2.0.6",
+    "webtorrent": "^0.98.21",
+    "xml2js": "^0.4.19",
+    "yargs": "^11.0.0"
+  }
+}
