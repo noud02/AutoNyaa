@@ -23,13 +23,20 @@ async function next() {
 
     const anime = argv._[i];
 
-    // Get the RSS feed from nyaa.si, use user if specified (--user 'myUser')
-    const res = await got(`https://nyaa.si/?page=rss&q=${escape(anime)}&u=${argv.user || 'HorribleSubs'}`);
+    let res, json;
 
-    // convert the XML to JSON
-    const json = await xml2js.parseStringAsync(res.body);
+    try {
+        // Get the RSS feed from nyaa.si, use user if specified (--user 'myUser')
+        res = await got(`https://nyaa.si/?page=rss&q=${escape(anime)}&u=${argv.user || 'HorribleSubs'}`);
+
+        // convert the XML to JSON
+        json = await xml2js.parseStringAsync(res.body);
+    } catch (e) {
+        throw e;
+    }
 
     // Filter and sort the results, only pick from specified res
+    if (!json.rss.channel[0].item) throw new Error(`No items found for ${anime}`);
     const items = json.rss.channel[0].item
         .filter(item => item.title[0].indexOf(argv.res || '1080p') > -1)
         .sort((one, two) => one.title[0].split(' - ')[1].split(' ')[0] > two.title[0].split(' - ')[1].split(' ')[0]);
@@ -112,7 +119,11 @@ async function next() {
 }
 
 // Start going through the shows
-next();
+next().catch((e) => {
+   console.error(e);
+    process.stdout.write('\x1B[?25h');
+    process.exit();
+});
 
 // On CTRL+C, show cursor again and exit process
 process.on('SIGINT', () => {
